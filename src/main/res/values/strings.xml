@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">PokeKotlin</string>
+    <string name="pokemon_image">image d\'un pokemon</string>
+</resources>
