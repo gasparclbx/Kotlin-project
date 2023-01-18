@@ -1,16 +1,15 @@
 package com.example.pokekotlin
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,12 +27,11 @@ class MainActivity : AppCompatActivity() {
 
         when (item.itemId)
         {
-            R.id.nav_Pokedex ->
+            R.id.nav_Equipe ->
             {
-                val intent = Intent(Intent.ACTION_WEB_SEARCH)
+                val intent = Intent(this, Equipe::class.java)
                 startActivity(intent)
             }
-            else -> Toast.makeText(this, item.title, Toast.LENGTH_LONG).show()
         }
         return true
     }
@@ -44,11 +42,12 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = PokemonAdapter(this)
         val recyclerView = findViewById<RecyclerView>(R.id.pokemon_recycler_view)
+        val gridLayoutManager = GridLayoutManager(this, 3)
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = gridLayoutManager
 
         pokeApiClient = PokeApiClient()
-        for (i in 0..151) {
+        for (i in 0..386) {
             pokeApiClient.getPokemon(i) { pokemon ->
                 if (pokemon != null) {
                     adapter.addPokemon(pokemon)

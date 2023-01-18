@@ -37,6 +37,12 @@
                 android:textSize="21sp" />
 
         </LinearLayout>
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottomNav"
+            />
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navigation"

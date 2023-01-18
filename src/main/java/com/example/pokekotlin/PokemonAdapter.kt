@@ -8,6 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 class PokemonAdapter(private val context: Context) : RecyclerView.Adapter<PokemonViewHolder>() {
     private val pokemonList = mutableListOf<Pokemon>()
 
+    // Ajoutez cette fonction pour trier les pokemons
+    fun sortPokemons() {
+        pokemonList.sortWith(compareBy { it.id})
+        notifyDataSetChanged()
+    }
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
@@ -27,6 +33,7 @@ class PokemonAdapter(private val context: Context) : RecyclerView.Adapter<Pokemo
 
     fun addPokemon(pokemon: Pokemon) {
         pokemonList.add(pokemon)
-        notifyDataSetChanged()
+        sortPokemons() // trier les pokemons après chaque ajout
     }
+
 }
