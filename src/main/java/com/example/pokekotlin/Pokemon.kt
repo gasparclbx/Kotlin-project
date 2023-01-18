@@ -11,7 +11,7 @@ data class Pokemon(
     val name: String,
     val weight: Int,
     val height: Int,
-    @Embedded val sprites: Sprites,
+    @Embedded(prefix = "sprites_") val sprites: Sprites,
     @Relation(
         parentColumn = "id",
         entityColumn = "pokemonId"
@@ -25,11 +25,12 @@ data class Sprites(
 @Entity(tableName = "stats")
 data class Stat(
     @PrimaryKey(autoGenerate = true) val id: Int,
-    val baseStat: Int,
-    val name: NamedApiResource,
+    val base_stat: Int,
+    val stat: NamedApiResource,
     val pokemonId: Int
 )
 
 data class NamedApiResource(
-    val name: String
+    val name: String,
+    val url: String
 )
