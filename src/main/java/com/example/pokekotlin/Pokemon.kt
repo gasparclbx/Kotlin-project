@@ -15,7 +15,8 @@ data class Pokemon(
     @Relation(
         parentColumn = "id",
         entityColumn = "pokemonId"
-    ) val stats: List<Stat>
+    ) val stats: List<Stat>,
+    val types: List<Type>,
 )
 
 data class Sprites(
@@ -27,6 +28,13 @@ data class Stat(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val base_stat: Int,
     val stat: NamedApiResource,
+    val pokemonId: Int
+)
+
+@Entity(tableName = "types")
+data class Type(
+    @PrimaryKey(autoGenerate = true) val id: Int,
+    val type: NamedApiResource,
     val pokemonId: Int
 )
 
