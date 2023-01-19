@@ -73,18 +73,23 @@ class MonPokemon : AppCompatActivity() {
             if (pokemon != null) {
                 //val pokemon = pokemonResponse.toPokemon()
                 var isShiny: Boolean = false
+                pokemonIsShiny.text = "Normal"
                 pokemonIsShiny.setOnClickListener{ true
                     if (isShiny == false){
                         Glide.with(this)
                             .load(pokemon.sprites.front_shiny)
                             .into(pokemonImage)
                         isShiny = true
+                        pokemonIsShiny.text = "* * * Shiny * * *"
+                        (application as MyApplication).saveUserTeam()
+
                     }
                     else if (isShiny == true){
                         Glide.with(this)
                             .load(pokemon.sprites.front_default)
                             .into(pokemonImage)
                         isShiny = false
+                        pokemonIsShiny.text = "Normal"
                     }
                 }
                 pokemonID.text = "ID in the national pokedex : " + "#" + pokemon.id.toString()

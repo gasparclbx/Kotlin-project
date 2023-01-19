@@ -60,6 +60,7 @@ class Equipe : AppCompatActivity() {
                 pokeApiClient.getPokemon(ID) { pokemon ->
                         if (pokemon != null) {
                             pokemonNames[i].text =  MyApplication.userTeam[i][1]
+
                             Glide.with(this).load(pokemon.sprites.front_default).into(pokemonIds[i])
                         }
                     }
