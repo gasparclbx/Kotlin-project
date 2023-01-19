@@ -54,8 +54,7 @@ class Stats : AppCompatActivity() {
                         MyApplication.userTeam.add(pokemonData)
                         (application as MyApplication).saveUserTeam()
                         Toast.makeText(this, "$pokemonData", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
+                        finish()
                     }
                 }
             } else {
@@ -70,7 +69,6 @@ class Stats : AppCompatActivity() {
             val pokemonHP: TextView = findViewById(R.id.statHP)
             val pokemonVitesse: TextView = findViewById(R.id.statVitesse)
             val pokemonImage: ImageView = findViewById(R.id.img_stat)
-            val pokemonType: TextView = findViewById(R.id.type_pokemon)
 
             pokeApiClient.getPokemon(pokemonId) { pokemon ->
                 if (pokemon != null) {
@@ -91,27 +89,6 @@ class Stats : AppCompatActivity() {
 
                         } else if (statname.stat.name == "hp") {
                             pokemonHP.text = statname.base_stat.toString()
-                        }
-                    }
-                    //permet d'afficher tous les types si il en a plusieurs
-                    if (pokemon.types.size == 2){
-                        var alltype = ""
-                        for (i in 0 until pokemon.types.size-1){
-                            for (typename in pokemon.types) {
-                                alltype += "/ " + typename.type.name + " /"
-                                //Log.d("pokeApi", "${pokemon.types.size}")
-                            }
-                            pokemonType.text = alltype
-                        }
-                    }
-                    else{
-                        var alltype = ""
-                        for (i in 0 until pokemon.types.size){
-                            for (typename in pokemon.types) {
-                                alltype += "/ " + typename.type.name + " /"
-                                //Log.d("pokeApi", "${pokemon.types.size}")
-                            }
-                            pokemonType.text = alltype
                         }
                     }
                 }

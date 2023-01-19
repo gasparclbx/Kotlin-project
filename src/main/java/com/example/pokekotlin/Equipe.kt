@@ -55,7 +55,7 @@ class Equipe : AppCompatActivity() {
             val pokemonNames = listOf(pokemon1TextView, pokemon2TextView, pokemon3TextView, pokemon4TextView, pokemon5TextView, pokemon6TextView)
             for (i in 0 until MyApplication.userTeam.size) {
                 val ID = MyApplication.userTeam[i][0].toInt()
-                    pokeApiClient.getPokemon(ID) { pokemon ->
+                pokeApiClient.getPokemon(ID) { pokemon ->
                         if (pokemon != null) {
                             pokemonNames[i].text =  MyApplication.userTeam[i][1]
                             Glide.with(this).load(pokemon.sprites.front_default).into(pokemonIds[i])
@@ -77,8 +77,9 @@ class Equipe : AppCompatActivity() {
                 if (size >= 1) {
                     val pokemonid = MyApplication.userTeam[0][0].toInt()
                     val pokemonName = MyApplication.userTeam[0][1]
-                    val i = Intent(this, Stats::class.java)
+                    val i = Intent(this, MonPokemon::class.java)
                     i.putExtra("pokemon_id", pokemonid)
+                    i.putExtra("pokemon_num", 0)
                     startActivity(i)
                 } else {
                     Toast.makeText(this, "Pas de pokémon ici", Toast.LENGTH_SHORT).show()
@@ -89,8 +90,9 @@ class Equipe : AppCompatActivity() {
                 if (MyApplication.userTeam.size >= 2) {
                     var pokemonid = MyApplication.userTeam[1][0].toInt()
                     var pokemonName = MyApplication.userTeam[1][1]
-                    var i = Intent(this, Stats::class.java)
+                    var i = Intent(this, MonPokemon::class.java)
                     i.putExtra("pokemon_id", pokemonid)
+                    i.putExtra("pokemon_num", 1)
                     startActivity(i)
                 } else {
                     Toast.makeText(this, "Pas de pokémon ici", Toast.LENGTH_SHORT).show()
@@ -101,8 +103,9 @@ class Equipe : AppCompatActivity() {
                 if (MyApplication.userTeam.size >= 3) {
                     var pokemonid = MyApplication.userTeam[2][0].toInt()
                     var pokemonName = MyApplication.userTeam[2][1]
-                    var i = Intent(this, Stats::class.java)
+                    var i = Intent(this, MonPokemon::class.java)
                     i.putExtra("pokemon_id", pokemonid)
+                    i.putExtra("pokemon_num", 2)
                     startActivity(i)
                 } else {
                     Toast.makeText(this, "Pas de pokémon ici", Toast.LENGTH_SHORT).show()
@@ -113,8 +116,9 @@ class Equipe : AppCompatActivity() {
                 if (MyApplication.userTeam.size >= 4) {
                     var pokemonid = MyApplication.userTeam[3][0].toInt()
                     var pokemonName = MyApplication.userTeam[3][1]
-                    var i = Intent(this, Stats::class.java)
+                    var i = Intent(this, MonPokemon::class.java)
                     i.putExtra("pokemon_id", pokemonid)
+                    i.putExtra("pokemon_num", 3)
                     startActivity(i)
                 } else {
                     Toast.makeText(this, "Pas de pokémon ici", Toast.LENGTH_SHORT).show()
@@ -125,8 +129,9 @@ class Equipe : AppCompatActivity() {
                 if (MyApplication.userTeam.size >= 5) {
                     var pokemonid = MyApplication.userTeam[4][0].toInt()
                     var pokemonName = MyApplication.userTeam[4][1]
-                    var i = Intent(this, Stats::class.java)
+                    var i = Intent(this, MonPokemon::class.java)
                     i.putExtra("pokemon_id", pokemonid)
+                    i.putExtra("pokemon_num", 4)
                     startActivity(i)
                 } else {
                     Toast.makeText(this, "Pas de pokémon ici", Toast.LENGTH_SHORT).show()
@@ -137,8 +142,9 @@ class Equipe : AppCompatActivity() {
                 if (MyApplication.userTeam.size >= 6) {
                     var pokemonid = MyApplication.userTeam[5][0].toInt()
                     var pokemonName = MyApplication.userTeam[5][1]
-                    var i = Intent(this, Stats::class.java)
+                    var i = Intent(this, MonPokemon::class.java)
                     i.putExtra("pokemon_id", pokemonid)
+                    i.putExtra("pokemon_num", 5)
                     startActivity(i)
                 } else {
                     Toast.makeText(this, "Pas de pokémon ici", Toast.LENGTH_SHORT).show()
