@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 class Equipe : AppCompatActivity() {
     private lateinit var pokeApiClient: PokeApiClient
 
-
+    //Mise en place du menu burger pour naviguer entre les layouts
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.drawer_items, menu)
@@ -32,6 +32,8 @@ class Equipe : AppCompatActivity() {
         }
         return true
     }
+
+    //Mise en place des pokémon dans l'équipe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_equipe)
@@ -72,6 +74,7 @@ class Equipe : AppCompatActivity() {
                 finish()
                 startActivity(intent)
             }
+        //permet d'afficher les stats des différents pokemons de l'équipe
             pokemon1ImageView.setOnClickListener {
                 var size = MyApplication.userTeam.size as Int
                 if (size >= 1) {

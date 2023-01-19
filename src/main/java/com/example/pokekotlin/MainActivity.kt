@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var pokemonRecyclerView: RecyclerView
     private lateinit var adapter: PokemonAdapter
 
+
+    //Mise en place du menu burger pour naviguer entre les layouts
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.drawer_items, menu)
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    //permet d'ajouter le nombre de pokemon que l'on souhaite sur la page d'accueil
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -47,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = gridLayoutManager
 
         pokeApiClient = PokeApiClient()
-        for (i in 0..386) {
+        for (i in 0..151) {
             pokeApiClient.getPokemon(i) { pokemon ->
                 if (pokemon != null) {
                     adapter.addPokemon(pokemon)

@@ -16,6 +16,7 @@ class Stats : AppCompatActivity() {
     private lateinit var pokeApiClient: PokeApiClient
     val pokemonData = mutableListOf<String>()
 
+    //Mise en place du menu burger pour naviguer entre les layouts
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.drawer_items, menu)
@@ -69,6 +70,7 @@ class Stats : AppCompatActivity() {
             val pokemonHP: TextView = findViewById(R.id.statHP)
             val pokemonVitesse: TextView = findViewById(R.id.statVitesse)
             val pokemonImage: ImageView = findViewById(R.id.img_stat)
+            val pokemonType: TextView = findViewById(R.id.type_pokemon)
 
             pokeApiClient.getPokemon(pokemonId) { pokemon ->
                 if (pokemon != null) {
@@ -91,7 +93,29 @@ class Stats : AppCompatActivity() {
                             pokemonHP.text = statname.base_stat.toString()
                         }
                     }
+                    //permet d'afficher tous les types si il en a plusieurs
+                    if (pokemon.types.size == 2){
+                        var alltype = ""
+                        for (i in 0 until pokemon.types.size-1){
+                            for (typename in pokemon.types) {
+                                alltype += "/ " + typename.type.name + " /"
+                                //Log.d("pokeApi", "${pokemon.types.size}")
+                            }
+                            pokemonType.text = alltype
+                        }
+                    }
+                    else{
+                        var alltype = ""
+                        for (i in 0 until pokemon.types.size){
+                            for (typename in pokemon.types) {
+                                alltype += "/ " + typename.type.name + " /"
+                                //Log.d("pokeApi", "${pokemon.types.size}")
+                            }
+                            pokemonType.text = alltype
+                        }
+                    }
                 }
+
             }
         }
     }
