@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = gridLayoutManager
 
         pokeApiClient = PokeApiClient()
-        for (i in 0..151) {
+        for (i in 0..1008) {
             pokeApiClient.getPokemon(i) { pokemon ->
                 if (pokemon != null) {
                     adapter.addPokemon(pokemon)

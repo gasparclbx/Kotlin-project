@@ -8,6 +8,7 @@ import androidx.room.Relation
 @Entity(tableName = "pokemon")
 data class Pokemon(
     @PrimaryKey val id: Int,
+    val location_area_encounters: String,
     val name: String,
     val weight: Int,
     val height: Int,
@@ -20,7 +21,8 @@ data class Pokemon(
 )
 
 data class Sprites(
-    val front_default: String
+    val front_default: String,
+    val front_shiny: String
 )
 
 @Entity(tableName = "stats")

@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.bumptech.glide.Glide
 
 class Stats : AppCompatActivity() {
@@ -71,11 +68,29 @@ class Stats : AppCompatActivity() {
             val pokemonVitesse: TextView = findViewById(R.id.statVitesse)
             val pokemonImage: ImageView = findViewById(R.id.img_stat)
             val pokemonType: TextView = findViewById(R.id.type_pokemon)
+            val pokemonHeight: TextView = findViewById(R.id.statHeight)
+            val pokemonWeight: TextView = findViewById(R.id.statWeight)
+            val pokemonIsShiny: Switch = findViewById(R.id.isShiny)
 
             pokeApiClient.getPokemon(pokemonId) { pokemon ->
                 if (pokemon != null) {
                     //val pokemon = pokemonResponse.toPokemon()
-                    pokemonName.text = pokemon.name
+                    var isShiny: Boolean = false
+                    pokemonIsShiny.setOnClickListener{ true
+                        if (isShiny == false){
+                            Glide.with(this)
+                                .load(pokemon.sprites.front_shiny)
+                                .into(pokemonImage)
+                            isShiny = true
+                        }
+                        else if (isShiny == true){
+                            Glide.with(this)
+                                .load(pokemon.sprites.front_default)
+                                .into(pokemonImage)
+                            isShiny = false
+                        }
+                    }
+                    pokemonName.text = "#" + pokemon.id.toString() + " " + pokemon.name
                     Glide.with(this)
                         .load(pokemon.sprites.front_default)
                         .into(pokemonImage)
@@ -98,8 +113,7 @@ class Stats : AppCompatActivity() {
                         var alltype = ""
                         for (i in 0 until pokemon.types.size-1){
                             for (typename in pokemon.types) {
-                                alltype += "/ " + typename.type.name + " /"
-                                //Log.d("pokeApi", "${pokemon.types.size}")
+                                alltype += "* " + typename.type.name + " *"
                             }
                             pokemonType.text = alltype
                         }
@@ -108,12 +122,14 @@ class Stats : AppCompatActivity() {
                         var alltype = ""
                         for (i in 0 until pokemon.types.size){
                             for (typename in pokemon.types) {
-                                alltype += "/ " + typename.type.name + " /"
-                                //Log.d("pokeApi", "${pokemon.types.size}")
+                                alltype += "* " + typename.type.name + " *"
                             }
                             pokemonType.text = alltype
                         }
                     }
+                    pokemonHeight.text = pokemon.height.toString() + " dm"
+                    pokemonWeight.text = pokemon.weight.toString() + " hg"
+                    Log.d("pokeApi", "${pokemon}")
                 }
 
             }

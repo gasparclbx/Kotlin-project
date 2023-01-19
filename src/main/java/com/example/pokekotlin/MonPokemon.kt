@@ -44,6 +44,7 @@ class MonPokemon : AppCompatActivity() {
         pokeApiClient = PokeApiClient()
 
         //affichage de la carte
+        val pokemonID: TextView = findViewById(R.id.id_pokemon)
         val pokemonName: TextView = findViewById(R.id.nom_poke_stat)
         val newPokemonName: EditText = findViewById(R.id.nom_poke_modif)
         val buttonModif: Button = findViewById(R.id.modif_nom_poke)
@@ -52,7 +53,13 @@ class MonPokemon : AppCompatActivity() {
         val pokemonHP: TextView = findViewById(R.id.statHP)
         val pokemonVitesse: TextView = findViewById(R.id.statVitesse)
         val pokemonImage: ImageView = findViewById(R.id.img_stat)
+        val pokemonIsShiny: Switch = findViewById(R.id.isShiny)
         val pokemonType: TextView = findViewById(R.id.type_pokemon)
+        val pokemonHeight: TextView = findViewById(R.id.statHeight)
+        val pokemonWeight: TextView = findViewById(R.id.statWeight)
+
+        //Log.d("pokeAPI", "$pokemonIsShiny")
+
 
         buttonModif.setOnClickListener {
             val newName = newPokemonName.text.toString()
@@ -65,10 +72,28 @@ class MonPokemon : AppCompatActivity() {
         pokeApiClient.getPokemon(pokemonId) { pokemon ->
             if (pokemon != null) {
                 //val pokemon = pokemonResponse.toPokemon()
+                var isShiny: Boolean = false
+                pokemonIsShiny.setOnClickListener{ true
+                    if (isShiny == false){
+                        Glide.with(this)
+                            .load(pokemon.sprites.front_shiny)
+                            .into(pokemonImage)
+                        isShiny = true
+                    }
+                    else if (isShiny == true){
+                        Glide.with(this)
+                            .load(pokemon.sprites.front_default)
+                            .into(pokemonImage)
+                        isShiny = false
+                    }
+                }
+                pokemonID.text = "ID in the national pokedex : " + "#" + pokemon.id.toString()
                 pokemonName.text =  MyApplication.userTeam[pokemonNum][1]
+
                 Glide.with(this)
                     .load(pokemon.sprites.front_default)
                     .into(pokemonImage)
+
                 for (statname in pokemon.stats) {
                     if (statname.stat.name == "attack") {
                         //        Log.d("pokeApi","$pokemon.stats.stat")
@@ -87,7 +112,7 @@ class MonPokemon : AppCompatActivity() {
                     var alltype = ""
                     for (i in 0 until pokemon.types.size-1){
                         for (typename in pokemon.types) {
-                            alltype += "/ " + typename.type.name + " /"
+                            alltype += "* " + typename.type.name + " *"
                             //Log.d("pokeApi", "${pokemon.types.size}")
                         }
                         pokemonType.text = alltype
@@ -96,12 +121,14 @@ class MonPokemon : AppCompatActivity() {
                     var alltype = ""
                     for (i in 0 until pokemon.types.size){
                         for (typename in pokemon.types) {
-                            alltype += "/ " + typename.type.name + " /"
+                            alltype += "* " + typename.type.name + " *"
                             //Log.d("pokeApi", "${pokemon.types.size}")
                         }
                         pokemonType.text = alltype
                     }
                 }
+                pokemonHeight.text = pokemon.height.toString() + " dm"
+                pokemonWeight.text = pokemon.weight.toString() + " hg"
             }
         }
     }
